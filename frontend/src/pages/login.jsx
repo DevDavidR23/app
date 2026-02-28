@@ -19,6 +19,7 @@ export default function Login() {
       }
    }
   return (
+    //cambio derecha
     /* Contenedor principal centrado */
     <div className="min-h-screen flex items-center justify-center bg-sky-100 p-6">
       {/* Card principal */}
