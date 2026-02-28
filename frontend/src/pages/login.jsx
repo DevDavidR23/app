@@ -1,7 +1,23 @@
 import React from 'react';
+import {useNavigate} from "react-router-dom"
+import { useState } from 'react';
 import Button from '../components/button.jsx';
 import logImg from "../assets/login_pictures/log.png";
 export default function Login() {
+  const[name, setname] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const validar = (e) => {
+    e.preventDefault();
+      if(name.toLowerCase() === "root" && password === "1234"){
+           alert("Bienvenido " + name);
+           setTimeout(() => {
+               navigate("/home")
+           }, 100);
+      }else{
+        console.log("Usuario o contraseña incorrectos");
+      }
+   }
   return (
     /* Contenedor principal centrado */
     <div className="min-h-screen flex items-center justify-center bg-sky-100 p-6">
@@ -11,7 +27,7 @@ export default function Login() {
         <div className="w-full md:w-1/2 p-8 flex flex-col justify-center">
           <h1 className="text-2xl font-semibold mb-6 text-center">Bienvenido</h1>
 
-          <form className="space-y-4">
+          <form className="space-y-4" >
             <div>
               <label htmlFor="user" className="block mb-1 text-sm font-medium">
                 Usuario
@@ -22,6 +38,7 @@ export default function Login() {
                 type="text"
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                onChange={(e) => setname(e.target.value)}
               />
             </div>
 
@@ -35,10 +52,11 @@ export default function Login() {
                 type="password"
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 
-            <Button type="submit">Ingresar</Button>
+            <Button type="submit" onClick={validar}>Ingresar</Button>
           </form>
         </div>
 
