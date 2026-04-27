@@ -17,7 +17,7 @@ export default function Login() {
     setTimeout(() => {
       if (name.toLowerCase() === "david" && password === "1234") {
         localStorage.setItem("user", name);
-        navigate("/home");
+        navigate("/activity");
       } else {
         setError("Usuario o contraseña incorrectos. Intenta de nuevo.");
         setLoading(false);
