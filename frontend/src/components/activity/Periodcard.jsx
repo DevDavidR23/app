@@ -143,4 +143,4 @@ export default function PeriodCard({ period, onGoStats, index }) {
       </div>
     </div>
   );
-}
+} // cambio
