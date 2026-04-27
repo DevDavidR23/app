@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ProgressBar from "./ProgressBar";
-import StatusBadge from "./StatusBadge";
+import Statusbadge from "./StatusBadge";
 
 export default function PeriodCard({ period, onGoStats, index }) {
   const [hovered, setHovered] = useState(false);
