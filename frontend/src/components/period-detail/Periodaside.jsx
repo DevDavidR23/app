@@ -1,6 +1,6 @@
 
-import StatusBadge from "../activity/StatusBadge";
-import ProgressBar from "../activity/ProgressBar";
+import StatusBadge from "../activity/Statusbadge";
+import ProgressBar from "../activity/Progressbar";
 import { asideNavLinks, skillsByPeriod } from "../../data/activities";
 
 export default function PeriodAside({ period, totalActivities, completedActivities, activeNav = "actividades", onNavChange }) {
