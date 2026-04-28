@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import MultipleChoiceGame from "../../components/games/MultipleChoiceGame";
-import FlashcardDeck      from "../../components/games/FlashcardDeck";
+import MultipleChoiceGame from "../../components/games/Multiplechoicegame";
+import FlashcardDeck      from "../../components/games/Flashcarddeck";
 import {
   activityMeta,
   multipleChoiceQuestions,
