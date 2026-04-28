@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { periods } from "../../components/activity/Periods";
+import { periods } from "../../data/Periods";
 import PeriodCard from "../../components/activity/Periodcard";
 
 const TOTAL_ACTIVITIES = periods.reduce((sum, p) => sum + p.activities, 0);
@@ -11,7 +11,9 @@ export default function Activity() {
   const handleGoStats = (periodId) => {
     navigate(`/stats/${periodId}`);
   };
-
+  const handleGoActivities = (periodId) => {
+    navigate(`/cursos/${periodId}`);
+  };
   return (
     <>
       <style>{`
@@ -86,8 +88,10 @@ export default function Activity() {
 
         {/* ── Period Cards Grid ── */}
         <main className="max-w-[1100px] mx-auto px-6 grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-5">
-          {periods.map((period, index) => (
+          {periods.map((period, index, ) => (
+            
             <PeriodCard
+              onGoActivities={handleGoActivities}
               key={period.id}
               period={period}
               onGoStats={handleGoStats}

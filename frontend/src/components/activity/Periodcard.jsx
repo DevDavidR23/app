@@ -2,7 +2,7 @@ import { useState } from "react";
 import ProgressBar from "./Progressbar.jsx";
 import StatusBadge from "./Statusbadge.jsx";
 
-export default function PeriodCard({ period, onGoStats, index }) {
+export default function PeriodCard({ period, onGoStats, index, onGoActivities}) {
   const [hovered, setHovered] = useState(false);
   const locked = period.status === "próximo";
 
@@ -95,6 +95,8 @@ export default function PeriodCard({ period, onGoStats, index }) {
         <div className="flex gap-2.5">
           {/* Activities button */}
           <button
+          // mandar a la pagina de actividades del período necesito enviar a perioddetails.jsx el id del período para mostrar sus actividades
+             onClick={() => onGoActivities(period.id)}
             disabled={locked}
             className={`flex-1 py-2.5 px-3 rounded-xl font-['Nunito',sans-serif] font-bold text-sm transition-[opacity,transform] duration-200
               ${locked ? "bg-slate-100 text-slate-400 cursor-not-allowed" : "text-white cursor-pointer"}`}
