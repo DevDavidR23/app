@@ -5,6 +5,8 @@ import Activity from "./pages/activitys/activity.jsx";
 import Test from "./pages/test.jsx";
 import PeriodDetail from "./pages/periodDetails/Perioddetails.jsx";
 import ActivityDetail from "./pages/activityDetails/ActivityDetail.jsx";
+import Crud from "./pages/crud/crud.jsx";
+
 function AppRouter() {
     return (
         <Routes>
@@ -14,7 +16,8 @@ function AppRouter() {
             <Route path="/cursos/:periodId" element={<PeriodDetail />} />
             <Route path="/test" element={<Test />} />
             <Route path="/actividad/:activityId" element={<ActivityDetail />} />
+            <Route path="/crud" element={<Crud />} />
         </Routes>
     )
 }
-export default AppRouter;
+export default AppRouter;
