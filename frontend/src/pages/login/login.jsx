@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { authApi } from '../../services/api.js';
 import logImg from "../../assets/login_pictures/log.png";
+
+// Credenciales de demo — el usuario demo@plataforma.com debe existir en la DB
+const DEMO_EMAIL = 'demo@plataforma.com';
+const DEMO_PASS  = 'Test1234!';
 
 export default function Login() {
   const [name, setName] = useState("");
@@ -9,21 +14,30 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const validar = (e) => {
+  const validar = async (e) => {
     e.preventDefault();
-    setError("");
+    setError('');
     setLoading(true);
-
-    setTimeout(() => {
-      if (name.toLowerCase() === "david" && password === "1234") {
-        localStorage.setItem("user", name);
-        navigate("/activity");
+    try {
+      const res = await authApi.login(name, password);
+      localStorage.setItem('token', res.data.token);
+      localStorage.setItem('studentName', res.data.student.name);
+      localStorage.setItem('studentId', res.data.student.id);
+      
+      // Si es el usuario demo (admin), va al CRUD. Los demás van a activity.
+      if (res.data.student.email === DEMO_EMAIL) {
+        navigate('/crud');
       } else {
-        setError("Usuario o contraseña incorrectos. Intenta de nuevo.");
-        setLoading(false);
+        navigate('/activity');
       }
-    }, 700);
+    } catch (err) {
+      setError(err.message || 'Usuario o contraseña incorrectos.');
+    } finally {
+      setLoading(false);
+    }
   };
+
+  const fillDemo = () => { setName(DEMO_EMAIL); setPassword(DEMO_PASS); };
 
   return (
     <>
@@ -195,14 +209,14 @@ export default function Login() {
 
               <div className="anim-2">
                 <label htmlFor="user" className="block text-sm font-semibold text-gray-600 mb-1.5">
-                  Usuario
+                  Email
                 </label>
                 <input
                   id="user"
                   name="user"
-                  type="text"
+                  type="email"
                   required
-                  placeholder="Tu nombre de usuario"
+                  placeholder="correo@ejemplo.com"
                   className="eng-input"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -251,13 +265,19 @@ export default function Login() {
               </div>
             </form>
 
-            {/* Footer */}
-            <p className="anim-4 text-center text-xs text-gray-400 mt-8">
-              ¿No tienes cuenta?{' '}
-              <button className="font-bold transition-colors" style={{ color:'#2558f4' }}>
-                Regístrate gratis
+            {/* Demo credentials hint */}
+            <div className="anim-4 mt-8 rounded-xl px-4 py-3 text-xs text-center"
+                 style={{ background:'#f0f6ff', border:'1.5px dashed #93c5fd', color:'#1d4ed8' }}>
+              <span style={{ fontWeight:700 }}>Demo rápido:</span>{' '}
+              <code style={{ background:'#dbeafe', borderRadius:4, padding:'1px 5px' }}>{DEMO_EMAIL}</code>
+              {' / '}
+              <code style={{ background:'#dbeafe', borderRadius:4, padding:'1px 5px' }}>{DEMO_PASS}</code>
+              {' '}
+              <button type="button" onClick={fillDemo}
+                      style={{ color:'#2558f4', fontWeight:700, textDecoration:'underline', background:'none', border:'none', cursor:'pointer' }}>
+                Usar →
               </button>
-            </p>
+            </div>
           </div>
 
         </div>
